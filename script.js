@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/srv-d175qi95pdvs73800mb0?key=e0Qq5wMbExU';
+const API_BASE_URL = 'http://localhost:3000/e0Qq5wMbExU';
 
 // --- Helper Functions ---
 function getAuthToken() {
