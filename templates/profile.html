@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Arial Rounded MT Bold', sans-serif; background: white; color: #444; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .profile-card { background: #f9f9f9; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 400px; text-align: center; }
+        .profile-card h2 { color: #333; margin-bottom: 25px; }
+        .profile-photo-wrapper { margin-bottom: 20px; position: relative; display: inline-block; }
+        .profile-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #999; }
+        .change-photo-btn { position: absolute; bottom: 5px; right: 5px; background-color: #999; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 16px; }
+        .profile-details p { font-size: 18px; margin-bottom: 10px; }
+        .profile-details strong { color: #555; }
+        .back-button { margin-top: 30px; padding: 10px 20px; background-color: #ccc; color: #333; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease; }
+        .back-button:hover { background-color: #aaa; }
+
+        /* Modal styles (same as in index.html for consistency, but defined here too) */
+        #profilePhotoModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #profilePhotoModal .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #888;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        #profilePhotoModal .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        #profilePhotoModal button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <h2>Your Profile</h2>
+        <div class="profile-photo-wrapper">
+            <img src="{{ url_for('static', filename='profile_pics/' + user.profile_photo) }}" alt="Profile Photo" class="profile-photo" id="currentProfilePhoto">
+            <button class="change-photo-btn" onclick="openProfilePhotoModal()"><i class="fas fa-camera"></i></button>
+        </div>
+        <div class="profile-details">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+        <a href="{{ url_for('index') }}" class="back-button">Back to Home</a>
+    </div>
+
+    <div id="profilePhotoModal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeProfilePhotoModal()">×</span>
+            <h2>Change Profile Photo</h2>
+            <form id="uploadPhotoForm" enctype="multipart/form-data">
+                <input type="file" name="profile_photo" accept="image/*" required>
+                <button type="submit">Upload New Photo</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openProfilePhotoModal() {
+            document.getElementById('profilePhotoModal').style.display = 'flex';
+        }
+
+        function closeProfilePhotoModal() {
+            document.getElementById('profilePhotoModal').style.display = 'none';
+        }
+
+        document.getElementById('uploadPhotoForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/change_profile_photo', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Profile photo updated successfully!');
+                    document.getElementById('currentProfilePhoto').src = data.new_photo_url;
+                    // Optional: update the main profile img in the header if it exists
+                    const headerProfileImg = document.querySelector('.profile-img');
+                    if (headerProfileImg) {
+                        headerProfileImg.src = data.new_photo_url;
+                    }
+                    closeProfilePhotoModal();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error uploading profile photo:', error);
+                alert('An error occurred during photo upload.');
+            }
+        });
+    </script>
+</body>
+</html>
