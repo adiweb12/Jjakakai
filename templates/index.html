@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIENTH CUT STUDIOS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* Your existing CSS (as provided in your first request) */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Arial Rounded MT Bold', sans-serif;
+      background: white;
+      color: #444;
+      overflow-x: hidden;
+    }.logo-circle {
+  width: 400px;
+  height: 400px;
+  background: #999;
+  border-radius: 50%;
+  position: absolute;
+  top: -200px;
+  left: -200px;
+  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideInCircle 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.logo-text {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.1;
+  opacity: 0;
+  animation: fadeInText 1.2s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+.logo-text .th {
+  font-size: 12px;
+  vertical-align: super;
+}
+
+.profile-container {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  z-index: 1000;
+}
+
+.profile-dropdown a {
+  display: block;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-dropdown a:last-child {
+  border-bottom: none;
+}
+
+.profile-dropdown a:hover {
+  background: #f5f5f5;
+}
+
+nav {
+  margin-top: 220px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0;
+  animation: fadeInNav 1.2s ease-out forwards;
+  animation-delay: 2.3s;
+}
+
+nav a {
+  text-decoration: none;
+  margin: 0 20px;
+  color: #777;
+  position: relative;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+nav a:hover { color: #000; }
+
+nav a.active {
+  color: #444;
+}
+
+nav a.active::after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #444;
+  left: 0;
+  bottom: -8px;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  background-color: rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section {
+  display: none;
+  animation: fadeUp 1.2s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.section.active {
+  display: block;
+}
+
+.search-wrapper {
+  margin: 30px auto;
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-box {
+  background: #999;
+  border-radius: 30px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+.search-box:hover {
+  background: #888;
+}
+
+.search-box input {
+  border: none;
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  flex: 1;
+  outline: none;
+}
+
+.search-box .icon {
+  font-size: 18px;
+  color: white;
+}
+
+.videos-section {
+  width: 90%;
+  max-width: 1000px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.videos-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.video-item {
+  background: #999;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.video-item:hover {
+  transform: scale(1.02);
+}
+
+.video-item iframe {
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+}
+
+.video-title {
+  margin-top: 10px;
+  font-weight: bold;
+  color: white;
+  font-size: 16px;
+}
+
+.video-placeholder {
+  height: 180px;
+  background: #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #222;
+  font-weight: bold;
+  text-align: center;
+}
+
+.coming-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.coming-date {
+  font-size: 14px;
+  color: #333;
+}
+
+.no-results {
+  display: none;
+  margin-top: 30px;
+  font-size: 18px;
+  color: #999;
+}
+
+@keyframes slideInCircle {
+  0% { transform: translate(-100px, -100px) scale(0.5); opacity: 0; }
+  100% { transform: translate(0, 0) scale(1); opacity: 1; }
+}
+
+@keyframes fadeInText { to { opacity: 1; } }
+@keyframes fadeInNav { to { opacity: 1; } }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Flash message styling */
+.flashes {
+    list-style: none;
+    padding: 10px 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 8px;
+    text-align: center;
+}
+.flashes li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.flashes .success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.flashes .error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.flashes .warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+.flashes .info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+  </style>
+</head>
+<body>
+  <div class="logo-circle"></div>
+  <div class="logo-text">NINE<span class="th">TH</span><br>CUT<br>STUDIOS</div>
+  <div class="profile-container">
+    <img src="{{ url_for('static', filename='profile_pics/' + (user.profile_photo if user else 'default.png')) }}" alt="Profile" class="profile-img" onclick="toggleDropdown()" />
+    <div class="profile-dropdown" id="profileDropdown">
+      {% if user %}
+      <a href="{{ url_for('profile') }}">Profile</a>
+      <a href="#" onclick="showWatchHistory()">Watch History</a>
+      <a href="#">Services</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('signup') }}">Signup</a>
+      {% endif %}
+    </div>
+  </div>
+  <nav>
+    <a class="active" onclick="showSection('home')">HOME</a>
+    <a onclick="showSection('videos')">VIDEOS</a>
+    <a onclick="showSection('upcomming')">UPCOMMING</a>
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <div id="home" class="section active">
+    <div class="search-wrapper">
+      <div class="search-box">
+        <input type="text" placeholder="SEARCH" onkeyup="searchHomeVideos(event)" />
+        <span class="icon"><i class="fas fa-search"></i></span>
+      </div>
+    </div>
+    <div class="videos-section">
+        <h2>LATEST VIDEOS</h2>
+        <div class="video-grid" id="homeVideoGrid">
+            {% for video in regular_videos %}
+            <div class="video-item">
+                <iframe src="https://www.youtube.com/embed/{{ video.youtube_id }}" frameborder="0" allowfullscreen onended="saveVideoToHistory('{{ video.id }}')"></iframe>
+                <p class="video-title">{{ video.title }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="no-results" id="homeNoResults">No results found.</div>
+    </div>
+  </div>
+
+  <div id="videos" class="section">
+    <div class="search-wrapper">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search videos..." onkeyup="filterVideos()" />
+        <span class="icon"><i class="fas fa-search"></i></span>
+      </div>
+    </div>
+    <div class="videos-section">
+      <h2>VIDEOS</h2>
+      <div class="video-grid" id="videoGrid">
+        {% for video in regular_videos %}
+            <div class="video-item">
+                <iframe src="https://www.youtube.com/embed/{{ video.youtube_id }}" frameborder="0" allowfullscreen onended="saveVideoToHistory('{{ video.id }}')"></iframe>
+                <p class="video-title">{{ video.title }}</p>
+            </div>
+            {% endfor %}
+      </div>
+      <div class="no-results" id="noResults">No results found.</div>
+    </div>
+  </div>
+
+  <div id="upcomming" class="section">
+    <div class="videos-section">
+      <h2>UPCOMING VIDEOS</h2>
+      <div class="video-grid" id="upcomingVideoGrid">
+        {% for video in upcoming_videos %}
+            <div class="video-item">
+                <div class="video-placeholder">
+                    <p class="coming-title">{{ video.title }}</p>
+                    <p class="coming-date">Premieres: {{ video.release_date.strftime('%B %d, %Y') if video.release_date else 'Date TBD' }}</p>
+                </div>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div id="watchHistoryModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 600px; border-radius: 10px;">
+      <span style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;" onclick="closeWatchHistoryModal()">×</span>
+      <h2>Your Watch History</h2>
+      <ul id="watchHistoryList" style="list-style-type: none; padding: 0;"></ul>
+    </div>
+  </div>
+
+  <div id="profileModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 400px; border-radius: 10px;">
+      <span style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;" onclick="closeProfileModal()">×</span>
+      <h2>Update Profile Photo</h2>
+      <form id="profilePhotoForm" enctype="multipart/form-data">
+        <input type="file" name="profile_photo" accept="image/*" required>
+        <button type="submit" style="margin-top: 10px; padding: 10px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Upload Photo</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+      const clickedLink = [...document.querySelectorAll('nav a')].find(a => a.textContent.toLowerCase() === id);
+      if (clickedLink) {
+        clickedLink.classList.add('active');
+
+        // Ripple effect
+        const ripple = document.createElement("span");
+        ripple.className = "ripple";
+        const rect = clickedLink.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        clickedLink.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      }
+    }
+
+    // New search function for the 'home' section
+    async function searchHomeVideos(event) {
+        const input = event.target.value.toLowerCase();
+        const videoGrid = document.getElementById("homeVideoGrid");
+        const noResults = document.getElementById("homeNoResults");
+
+        try {
+            const response = await fetch(`/search_videos?q=${encodeURIComponent(input)}`);
+            const data = await response.json();
+
+            if (data.success) {
+                videoGrid.innerHTML = ''; // Clear current videos
+                if (data.videos.length > 0) {
+                    data.videos.forEach(video => {
+                        const videoItem = `
+                            <div class="video-item">
+                                <iframe src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allowfullscreen onended="saveVideoToHistory('${video.id}')"></iframe>
+                                <p class="video-title">${video.title}</p>
+                            </div>
+                        `;
+                        videoGrid.innerHTML += videoItem;
+                    });
+                    noResults.style.display = "none";
+                } else {
+                    noResults.style.display = "block";
+                }
+            } else {
+                console.error('Error fetching search results:', data.message);
+                noResults.style.display = "block";
+            }
+        } catch (error) {
+            console.error('Network error during search:', error);
+            noResults.style.display = "block";
+        }
+    }
+
+
+    // Existing filterVideos function for 'videos' section (can be adapted to use API)
+    async function filterVideos() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const videoGrid = document.getElementById("videoGrid");
+      const noResults = document.getElementById("noResults");
+
+      try {
+            const response = await fetch(`/search_videos?q=${encodeURIComponent(input)}`);
+            const data = await response.json();
+
+            if (data.success) {
+                videoGrid.innerHTML = ''; // Clear current videos
+                if (data.videos.length > 0) {
+                    data.videos.forEach(video => {
+                        const videoItem = `
+                            <div class="video-item">
+                                <iframe src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allowfullscreen onended="saveVideoToHistory('${video.id}')"></iframe>
+                                <p class="video-title">${video.title}</p>
+                            </div>
+                        `;
+                        videoGrid.innerHTML += videoItem;
+                    });
+                    noResults.style.display = "none";
+                } else {
+                    noResults.style.display = "block";
+                }
+            } else {
+                console.error('Error fetching search results:', data.message);
+                noResults.style.display = "block";
+            }
+        } catch (error) {
+            console.error('Network error during search:', error);
+            noResults.style.display = "block";
+        }
+    }
+
+    function toggleDropdown() {
+      const dropdown = document.getElementById("profileDropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    window.addEventListener('click', function(e) {
+      const dropdown = document.getElementById("profileDropdown");
+      const profile = document.querySelector(".profile-img");
+      if (!profile.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Function to save watch history
+    async function saveVideoToHistory(videoId) {
+        try {
+            const response = await fetch('/save_watch_history', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ video_id: videoId })
+            });
+            const data = await response.json();
+            if (data.success) {
+                console.log('Video watched and history updated:', data.message);
+            } else {
+                console.error('Error updating watch history:', data.message);
+            }
+        } catch (error) {
+            console.error('Network error saving watch history:', error);
+        }
+    }
+
+    // Function to show watch history modal and fetch data
+    async function showWatchHistory() {
+        toggleDropdown(); // Close the profile dropdown
+        const modal = document.getElementById("watchHistoryModal");
+        const historyList = document.getElementById("watchHistoryList");
+        historyList.innerHTML = '<li>Loading watch history...</li>';
+        modal.style.display = "block";
+
+        try {
+            const response = await fetch('/get_watch_history');
+            const data = await response.json();
+
+            if (data.success) {
+                historyList.innerHTML = ''; // Clear loading message
+                if (data.history.length > 0) {
+                    data.history.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `<strong>${item.video_title}</strong> watched on ${item.watched_on} <br>
+                                            <iframe width="200" height="113" src="https://www.youtube.com/embed/${item.video_youtube_id}" frameborder="0" allowfullscreen></iframe>`;
+                        historyList.appendChild(listItem);
+                    });
+                } else {
+                    historyList.innerHTML = '<li>No watch history yet.</li>';
+                }
+            } else {
+                historyList.innerHTML = `<li>Error: ${data.message}</li>`;
+                console.error('Error fetching watch history:', data.message);
+            }
+        } catch (error) {
+            historyList.innerHTML = '<li>Error fetching history. Please try again.</li>';
+            console.error('Network error fetching watch history:', error);
+        }
+    }
+
+    function closeWatchHistoryModal() {
+        document.getElementById("watchHistoryModal").style.display = "none";
+    }
+
+    // Function to open profile photo update modal
+    function openProfileModal() {
+        toggleDropdown(); // Close profile dropdown
+        document.getElementById("profileModal").style.display = "block";
+    }
+
+    function closeProfileModal() {
+        document.getElementById("profileModal").style.display = "none";
+    }
+
+    // Handle profile photo form submission
+    document.getElementById("profilePhotoForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch('/change_profile_photo', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                alert(data.message);
+                document.querySelector('.profile-img').src = data.new_photo_url;
+                closeProfileModal();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error uploading profile photo:', error);
+            alert('An error occurred during photo upload.');
+        }
+    });
+
+    // Modify the profile dropdown to include the "Change Photo" option and link to modals
+    document.querySelector('.profile-dropdown a[href="#"]').addEventListener('click', function(e) {
+        if (this.textContent === 'Profile') {
+            e.preventDefault();
+            // This is where you might show a profile details page or the photo update modal
+            openProfileModal(); // For now, directly open photo update
+        }
+    });
+
+  </script>
+</body>
+  </html>
+
