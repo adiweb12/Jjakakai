@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body { font-family: 'Arial Rounded MT Bold', sans-serif; background: white; color: #444; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .signup-container { background: #f9f9f9; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 350px; text-align: center; }
+        .signup-container h2 { color: #333; margin-bottom: 25px; }
+        .signup-container input[type="text"],
+        .signup-container input[type="email"],
+        .signup-container input[type="password"] { width: calc(100% - 20px); padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+        .signup-container button { width: 100%; padding: 12px; background-color: #999; color: white; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; transition: background-color 0.3s ease; }
+        .signup-container button:hover { background-color: #777; }
+        .signup-container .link { margin-top: 15px; font-size: 14px; }
+        .signup-container .link a { color: #999; text-decoration: none; }
+        .flash-messages { list-style: none; padding: 0; margin-bottom: 20px; }
+        .flash-messages li { padding: 10px; margin-bottom: 10px; border-radius: 5px; font-weight: bold; }
+        .flash-messages .error { background-color: #ffe0e0; color: #cc0000; border: 1px solid #cc0000; }
+        .flash-messages .success { background-color: #e0ffe0; color: #00cc00; border: 1px solid #00cc00; }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('signup') }}">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="link">
+            Already have an account? <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </div>
+</body>
+</html>
