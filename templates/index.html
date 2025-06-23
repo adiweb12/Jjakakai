@@ -6,7 +6,7 @@
   <title>NIENTH CUT STUDIOS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* Your existing CSS (as provided in your first request) */
+    /* Your existing CSS (no changes here for now) */
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -14,298 +14,314 @@
       background: white;
       color: #444;
       overflow-x: hidden;
-    }.logo-circle {
-  width: 400px;
-  height: 400px;
-  background: #999;
-  border-radius: 50%;
-  position: absolute;
-  top: -200px;
-  left: -200px;
-  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.2);
-  animation: slideInCircle 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
+    }
+    .logo-circle {
+      width: 400px;
+      height: 400px;
+      background: #999;
+      border-radius: 50%;
+      position: absolute;
+      top: -200px;
+      left: -200px;
+      box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.2);
+      animation: slideInCircle 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
 
-.logo-text {
-  position: absolute;
-  top: 40px;
-  left: 10px;
-  color: white;
-  font-size: 28px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 1.1;
-  opacity: 0;
-  animation: fadeInText 1.2s ease-out forwards;
-  animation-delay: 1.5s;
-}
+    .logo-text {
+      position: absolute;
+      top: 40px;
+      left: 10px;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.1;
+      opacity: 0;
+      animation: fadeInText 1.2s ease-out forwards;
+      animation-delay: 1.5s;
+    }
 
-.logo-text .th {
-  font-size: 12px;
-  vertical-align: super;
-}
+    .logo-text .th {
+      font-size: 12px;
+      vertical-align: super;
+    }
 
-.profile-container {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-}
+    .profile-container {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
 
-.profile-img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-}
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
 
-.profile-dropdown {
-  display: none;
-  position: absolute;
-  top: 50px;
-  right: 0;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 180px;
-  z-index: 1000;
-}
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 180px;
+      z-index: 1000;
+    }
 
-.profile-dropdown a {
-  display: block;
-  padding: 12px 16px;
-  color: #333;
-  text-decoration: none;
-  border-bottom: 1px solid #eee;
-}
+    .profile-dropdown a {
+      display: block;
+      padding: 12px 16px;
+      color: #333;
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+    }
 
-.profile-dropdown a:last-child {
-  border-bottom: none;
-}
+    .profile-dropdown a:last-child {
+      border-bottom: none;
+    }
 
-.profile-dropdown a:hover {
-  background: #f5f5f5;
-}
+    .profile-dropdown a:hover {
+      background: #f5f5f5;
+    }
 
-nav {
-  margin-top: 220px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  opacity: 0;
-  animation: fadeInNav 1.2s ease-out forwards;
-  animation-delay: 2.3s;
-}
+    nav {
+      margin-top: 220px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      opacity: 0;
+      animation: fadeInNav 1.2s ease-out forwards;
+      animation-delay: 2.3s;
+    }
 
-nav a {
-  text-decoration: none;
-  margin: 0 20px;
-  color: #777;
-  position: relative;
-  transition: color 0.3s ease;
-  cursor: pointer;
-  overflow: hidden;
-}
+    nav a {
+      text-decoration: none;
+      margin: 0 20px;
+      color: #777;
+      position: relative;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
 
-nav a:hover { color: #000; }
+    nav a:hover { color: #000; }
 
-nav a.active {
-  color: #444;
-}
+    nav a.active {
+      color: #444;
+    }
 
-nav a.active::after {
-  content: "";
-  position: absolute;
-  height: 3px;
-  width: 100%;
-  background: #444;
-  left: 0;
-  bottom: -8px;
-}
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      height: 3px;
+      width: 100%;
+      background: #444;
+      left: 0;
+      bottom: -8px;
+    }
 
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  animation: ripple-animation 0.6s linear;
-  background-color: rgba(0, 0, 0, 0.15);
-  pointer-events: none;
-  z-index: 1;
-}
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple-animation 0.6s linear;
+      background-color: rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      z-index: 1;
+    }
 
-.section {
-  display: none;
-  animation: fadeUp 1.2s ease-out forwards;
-  opacity: 0;
-  transform: translateY(20px);
-}
+    .section {
+      display: none;
+      animation: fadeUp 1.2s ease-out forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
 
-.section.active {
-  display: block;
-}
+    .section.active {
+      display: block;
+    }
 
-.search-wrapper {
-  margin: 30px auto;
-  width: 90%;
-  max-width: 600px;
-  display: flex;
-  justify-content: center;
-}
+    .search-wrapper {
+      margin: 30px auto;
+      width: 90%;
+      max-width: 600px;
+      display: flex;
+      justify-content: center;
+    }
 
-.search-box {
-  background: #999;
-  border-radius: 30px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  transition: background 0.3s ease;
-}
+    .search-box {
+      background: #999;
+      border-radius: 30px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
 
-.search-box:hover {
-  background: #888;
-}
+    .search-box:hover {
+      background: #888;
+    }
 
-.search-box input {
-  border: none;
-  background: transparent;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  flex: 1;
-  outline: none;
-}
+    .search-box input {
+      border: none;
+      background: transparent;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      flex: 1;
+      outline: none;
+    }
 
-.search-box .icon {
-  font-size: 18px;
-  color: white;
-}
+    .search-box .icon {
+      font-size: 18px;
+      color: white;
+    }
 
-.videos-section {
-  width: 90%;
-  max-width: 1000px;
-  margin: 60px auto;
-  text-align: center;
-}
+    .videos-section {
+      width: 90%;
+      max-width: 1000px;
+      margin: 60px auto;
+      text-align: center;
+    }
 
-.videos-section h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #444;
-}
+    .videos-section h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #444;
+    }
 
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
 
-.video-item {
-  background: #999;
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
+    .video-item {
+      background: #999;
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
 
-.video-item:hover {
-  transform: scale(1.02);
-}
+    .video-item:hover {
+      transform: scale(1.02);
+    }
 
-.video-item iframe {
-  width: 100%;
-  height: 180px;
-  border-radius: 8px;
-}
+    .video-item iframe {
+      width: 100%;
+      height: 180px;
+      border-radius: 8px;
+    }
 
-.video-title {
-  margin-top: 10px;
-  font-weight: bold;
-  color: white;
-  font-size: 16px;
-}
+    .video-title {
+      margin-top: 10px;
+      font-weight: bold;
+      color: white;
+      font-size: 16px;
+    }
 
-.video-placeholder {
-  height: 180px;
-  background: #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #222;
-  font-weight: bold;
-  text-align: center;
-}
+    .video-placeholder {
+      height: 180px;
+      background: #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #222;
+      font-weight: bold;
+      text-align: center;
+    }
 
-.coming-title {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
+    .coming-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
 
-.coming-date {
-  font-size: 14px;
-  color: #333;
-}
+    .coming-date {
+      font-size: 14px;
+      color: #333;
+    }
 
-.no-results {
-  display: none;
-  margin-top: 30px;
-  font-size: 18px;
-  color: #999;
-}
+    .no-results {
+      display: none;
+      margin-top: 30px;
+      font-size: 18px;
+      color: #999;
+    }
 
-@keyframes slideInCircle {
-  0% { transform: translate(-100px, -100px) scale(0.5); opacity: 0; }
-  100% { transform: translate(0, 0) scale(1); opacity: 1; }
-}
+    .home-message {
+      margin: 40px auto;
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+      font-size: 1.2em;
+      color: #666;
+      line-height: 1.6;
+      padding: 20px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      background-color: #fcfcfc;
+    }
 
-@keyframes fadeInText { to { opacity: 1; } }
-@keyframes fadeInNav { to { opacity: 1; } }
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-@keyframes ripple-animation {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
 
-/* Flash message styling */
-.flashes {
-    list-style: none;
-    padding: 10px 20px;
-    margin: 20px auto;
-    width: 90%;
-    max-width: 800px;
-    border-radius: 8px;
-    text-align: center;
-}
-.flashes li {
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-.flashes .success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-.flashes .error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-.flashes .warning {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
-}
-.flashes .info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
-}
+    @keyframes slideInCircle {
+      0% { transform: translate(-100px, -100px) scale(0.5); opacity: 0; }
+      100% { transform: translate(0, 0) scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeInText { to { opacity: 1; } }
+    @keyframes fadeInNav { to { opacity: 1; } }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* Flash message styling */
+    .flashes {
+        list-style: none;
+        padding: 10px 20px;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 8px;
+        text-align: center;
+    }
+    .flashes li {
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    .flashes .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    .flashes .error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+    .flashes .warning {
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeeba;
+    }
+    .flashes .info {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+    }
 
   </style>
 </head>
@@ -318,6 +334,9 @@ nav a.active::after {
       {% if user %}
       <a href="{{ url_for('profile') }}">Profile</a>
       <a href="#" onclick="showWatchHistory()">Watch History</a>
+      {% if is_developer %}
+      <a href="{{ url_for('developer_dashboard') }}">Developer Dashboard</a>
+      {% endif %}
       <a href="#">Services</a>
       <a href="{{ url_for('logout') }}">Logout</a>
       {% else %}
@@ -349,17 +368,23 @@ nav a.active::after {
         <span class="icon"><i class="fas fa-search"></i></span>
       </div>
     </div>
+    {# Moved home-message section BELOW search-wrapper #}
+    <div class="home-message">
+        <p>{{ home_message }}</p>
+    </div>
     <div class="videos-section">
-        <h2>LATEST VIDEOS</h2>
+        <h2>LATEST VIDEO</h2> {# Changed to singular 'VIDEO' #}
         <div class="video-grid" id="homeVideoGrid">
-            {% for video in regular_videos %}
+            {% if latest_home_video %} {# Check if a latest video exists #}
             <div class="video-item">
-                <iframe src="https://www.youtube.com/embed/{{ video.youtube_id }}" frameborder="0" allowfullscreen onended="saveVideoToHistory('{{ video.id }}')"></iframe>
-                <p class="video-title">{{ video.title }}</p>
+                <iframe src="https://www.youtube.com/embed/{{ latest_home_video.youtube_id }}" frameborder="0" allowfullscreen onended="saveVideoToHistory('{{ latest_home_video.id }}')"></iframe>
+                <p class="video-title">{{ latest_home_video.title }}</p>
             </div>
-            {% endfor %}
+            {% else %}
+            <p>No latest video available.</p>
+            {% endif %}
         </div>
-        <div class="no-results" id="homeNoResults">No results found.</div>
+        <div class="no-results" id="homeNoResults" style="display:none;">No results found.</div> {# Hidden by default #}
     </div>
   </div>
 
@@ -373,7 +398,7 @@ nav a.active::after {
     <div class="videos-section">
       <h2>VIDEOS</h2>
       <div class="video-grid" id="videoGrid">
-        {% for video in regular_videos %}
+         {% for video in regular_videos %} {# This now uses all_regular_videos passed from app.py #}
             <div class="video-item">
                 <iframe src="https://www.youtube.com/embed/{{ video.youtube_id }}" frameborder="0" allowfullscreen onended="saveVideoToHistory('{{ video.id }}')"></iframe>
                 <p class="video-title">{{ video.title }}</p>
@@ -429,7 +454,6 @@ nav a.active::after {
       if (clickedLink) {
         clickedLink.classList.add('active');
 
-        // Ripple effect
         const ripple = document.createElement("span");
         ripple.className = "ripple";
         const rect = clickedLink.getBoundingClientRect();
@@ -442,7 +466,6 @@ nav a.active::after {
       }
     }
 
-    // New search function for the 'home' section
     async function searchHomeVideos(event) {
         const input = event.target.value.toLowerCase();
         const videoGrid = document.getElementById("homeVideoGrid");
@@ -453,17 +476,17 @@ nav a.active::after {
             const data = await response.json();
 
             if (data.success) {
-                videoGrid.innerHTML = ''; // Clear current videos
+                videoGrid.innerHTML = ''; // Clear previous content
                 if (data.videos.length > 0) {
-                    data.videos.forEach(video => {
-                        const videoItem = `
-                            <div class="video-item">
-                                <iframe src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allowfullscreen onended="saveVideoToHistory('${video.id}')"></iframe>
-                                <p class="video-title">${video.title}</p>
-                            </div>
-                        `;
-                        videoGrid.innerHTML += videoItem;
-                    });
+                    // Always show only the first result for the home search, as requested
+                    const video = data.videos[0];
+                    const videoItem = `
+                        <div class="video-item">
+                            <iframe src="https://www.youtube.com/embed/${video.youtube_id}" frameborder="0" allowfullscreen onended="saveVideoToHistory('${video.id}')"></iframe>
+                            <p class="video-title">${video.title}</p>
+                        </div>
+                    `;
+                    videoGrid.innerHTML += videoItem;
                     noResults.style.display = "none";
                 } else {
                     noResults.style.display = "block";
@@ -479,7 +502,6 @@ nav a.active::after {
     }
 
 
-    // Existing filterVideos function for 'videos' section (can be adapted to use API)
     async function filterVideos() {
       const input = document.getElementById("searchInput").value.toLowerCase();
       const videoGrid = document.getElementById("videoGrid");
@@ -490,7 +512,7 @@ nav a.active::after {
             const data = await response.json();
 
             if (data.success) {
-                videoGrid.innerHTML = ''; // Clear current videos
+                videoGrid.innerHTML = '';
                 if (data.videos.length > 0) {
                     data.videos.forEach(video => {
                         const videoItem = `
@@ -528,7 +550,6 @@ nav a.active::after {
       }
     });
 
-    // Function to save watch history
     async function saveVideoToHistory(videoId) {
         try {
             const response = await fetch('/save_watch_history', {
@@ -549,9 +570,8 @@ nav a.active::after {
         }
     }
 
-    // Function to show watch history modal and fetch data
     async function showWatchHistory() {
-        toggleDropdown(); // Close the profile dropdown
+        toggleDropdown();
         const modal = document.getElementById("watchHistoryModal");
         const historyList = document.getElementById("watchHistoryList");
         historyList.innerHTML = '<li>Loading watch history...</li>';
@@ -562,7 +582,7 @@ nav a.active::after {
             const data = await response.json();
 
             if (data.success) {
-                historyList.innerHTML = ''; // Clear loading message
+                historyList.innerHTML = '';
                 if (data.history.length > 0) {
                     data.history.forEach(item => {
                         const listItem = document.createElement('li');
@@ -587,9 +607,8 @@ nav a.active::after {
         document.getElementById("watchHistoryModal").style.display = "none";
     }
 
-    // Function to open profile photo update modal
     function openProfileModal() {
-        toggleDropdown(); // Close profile dropdown
+        toggleDropdown();
         document.getElementById("profileModal").style.display = "block";
     }
 
@@ -597,7 +616,6 @@ nav a.active::after {
         document.getElementById("profileModal").style.display = "none";
     }
 
-    // Handle profile photo form submission
     document.getElementById("profilePhotoForm").addEventListener("submit", async function(event) {
         event.preventDefault();
         const formData = new FormData(this);
@@ -622,16 +640,16 @@ nav a.active::after {
         }
     });
 
-    // Modify the profile dropdown to include the "Change Photo" option and link to modals
-    document.querySelector('.profile-dropdown a[href="#"]').addEventListener('click', function(e) {
-        if (this.textContent === 'Profile') {
-            e.preventDefault();
-            // This is where you might show a profile details page or the photo update modal
-            openProfileModal(); // For now, directly open photo update
-        }
+    // You might need to adjust this part if your "Profile" link behaves differently
+    // For now, assuming it triggers a modal or direct navigation.
+    // If your "Profile" link goes to a separate page, this listener might not be needed.
+    // If it *is* meant to open a modal, ensure the correct element is targeted.
+    document.querySelector('.profile-dropdown a[href="{{ url_for("profile") }}"]').addEventListener('click', function(e) {
+        // Prevent default navigation if you intend to use a modal for profile editing
+        // e.preventDefault();
+        // openProfileModal(); // Call your modal opening function here if desired
     });
 
   </script>
 </body>
-  </html>
-
+</html>

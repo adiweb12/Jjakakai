@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Arial Rounded MT Bold', sans-serif; background: white; color: #444; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .dashboard-container { background: #f9f9f9; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); width: 700px; text-align: center; }
+        .dashboard-container h2 { color: #333; margin-bottom: 25px; }
+        .dashboard-container form { display: flex; flex-direction: column; align-items: center; border: 1px solid #eee; padding: 20px; border-radius: 8px; margin-bottom: 30px;}
+        .dashboard-container label { margin-top: 15px; margin-bottom: 5px; font-weight: bold; color: #555; }
+        .dashboard-container input[type="text"],
+        .dashboard-container input[type="date"],
+        .dashboard-container textarea { /* Added textarea */
+            width: calc(100% - 40px); padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;
+        }
+        .dashboard-container textarea { height: 100px; resize: vertical; } /* Specific style for textarea */
+        .dashboard-container input[type="checkbox"] { margin-right: 10px; }
+        .dashboard-container .checkbox-group { display: flex; align-items: center; margin-bottom: 20px; }
+        .dashboard-container button { width: 100%; max-width: 200px; padding: 12px; background-color: #999; color: white; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 20px; }
+        .dashboard-container button:hover { background-color: #777; }
+        .back-button { margin-top: 30px; padding: 10px 20px; background-color: #ccc; color: #333; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease; display: inline-block;}
+        .back-button:hover { background-color: #aaa; }
+        .flash-messages { list-style: none; padding: 0; margin-bottom: 20px; }
+        .flash-messages li { padding: 10px; margin-bottom: 10px; border-radius: 5px; font-weight: bold; }
+        .flash-messages .error { background-color: #ffe0e0; color: #cc0000; border: 1px solid #cc0000; }
+        .flash-messages .success { background-color: #e0ffe0; color: #00cc00; border: 1px solid #00cc00; }
+
+        .current-videos { margin-top: 40px; text-align: left; border-top: 1px solid #eee; padding-top: 20px;}
+        .current-videos h3 { text-align: center; color: #333; margin-bottom: 15px;}
+        .current-videos ul { list-style: none; padding: 0;}
+        .current-videos li { background-color: #fff; border: 1px solid #ddd; padding: 10px 15px; margin-bottom: 8px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; font-size: 15px;}
+        .current-videos li span { display: block;}
+        .current-videos li .title { font-weight: bold; color: #444;}
+        .current-videos li .youtube-id { font-family: 'Courier New', monospace; color: #777; font-size: 0.9em;}
+        .current-videos li .status { font-style: italic; color: #666; font-size: 0.8em;}
+        .current-videos li .actions { display: flex; gap: 5px;}
+        .current-videos li .actions button { padding: 5px 10px; font-size: 0.8em; border-radius: 4px; cursor: pointer; border: none;}
+        .current-videos li .actions .edit-btn { background-color: #007bff; color: white;}
+        .current-videos li .actions .delete-btn { background-color: #dc3545; color: white;}
+
+        /* Style for Home Content Editor */
+        .home-content-editor {
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .home-content-editor h3 {
+            margin-bottom: 15px;
+        }
+        .home-content-editor textarea {
+            width: calc(100% - 20px); /* Adjust width */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            min-height: 100px;
+            resize: vertical;
+        }
+        .home-content-editor button {
+            margin-top: 15px;
+            max-width: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Developer Dashboard</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {# Form for editing Home Page Content #}
+        <div class="home-content-editor">
+            <h3>Edit Home Page Message</h3>
+            <form method="POST" action="{{ url_for('manage_home_content') }}">
+                <label for="home_welcome_message">Welcome Message:</label>
+                <textarea id="home_welcome_message" name="home_welcome_message" required>{{ home_page_text }}</textarea>
+                <button type="submit">Update Home Page Message</button>
+            </form>
+        </div>
+
+
+        {# Form for adding/editing videos #}
+        <h3 id="formHeader">{{ 'Edit Video' if video_to_edit else 'Upload New Video' }}</h3>
+        <form method="POST" id="videoForm" action="{{ url_for('upload_video') }}">
+            {# Hidden input for video_id will be added by JavaScript when editing #}
+            <label for="title">Video Title:</label>
+            <input type="text" id="title" name="title" value="{{ video_to_edit.title if video_to_edit else '' }}" required>
+
+            <label for="youtube_id">YouTube Video ID:</label>
+            <input type="text" id="youtube_id" name="youtube_id" placeholder="e.g., d8TZ_zImSE8" value="{{ video_to_edit.youtube_id if video_to_edit else '' }}" required>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="is_upcoming" name="is_upcoming" onchange="toggleReleaseDate()" {% if video_to_edit and video_to_edit.is_upcoming %}checked{% endif %}>
+                <label for="is_upcoming">Mark as Upcoming Video</label>
+            </div>
+
+            <label for="release_date" id="releaseDateLabel" style="display:none;">Release Date:</label>
+            <input type="date" id="release_date" name="release_date" value="{{ video_to_edit.release_date.strftime('%Y-%m-%d') if video_to_edit and video_to_edit.release_date else '' }}" style="display:none;">
+
+            <button type="submit" id="submitButton">{{ 'Update Video' if video_to_edit else 'Upload Video' }}</button>
+            {% if video_to_edit %}
+                <button type="button" onclick="clearForm()" style="background-color: #6c757d; margin-top: 10px;">Cancel Edit</button>
+            {% endif %}
+        </form>
+
+        <div class="current-videos">
+            <h3>Currently Managed Videos</h3>
+            <ul>
+                {% for video in current_videos %}
+                    <li>
+                        <div>
+                            <span class="title">{{ video.title }}</span>
+                            <span class="youtube-id">ID: {{ video.youtube_id }}</span>
+                        </div>
+                        <span class="status">
+                            {% if video.is_upcoming %}
+                                Upcoming ({{ video.release_date.strftime('%Y-%m-%d') if video.release_date else 'TBD' }})
+                            {% else %}
+                                Regular Video
+                            {% endif %}
+                        </span>
+                        <div class="actions">
+                            <button class="edit-btn" onclick="editVideo({{ video.id }}, '{{ video.title }}', '{{ video.youtube_id }}', {{ 'true' if video.is_upcoming else 'false' }}, '{{ video.release_date.strftime('%Y-%m-%d') if video.release_date else '' }}')">
+                                Edit
+                            </button>
+                            <form action="{{ url_for('delete_video', video_id=video.id) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this video?');">
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                {% else %}
+                    <li>No videos uploaded yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="back-button">Back to Home</a>
+    </div>
+
+    <script>
+        // Initial call to set state based on loaded video (if editing)
+        document.addEventListener('DOMContentLoaded', (event) => {
+            toggleReleaseDate(); // Call on load to hide/show date field correctly for video form
+        });
+
+        function toggleReleaseDate() {
+            const isUpcomingCheckbox = document.getElementById('is_upcoming');
+            const releaseDateInput = document.getElementById('release_date');
+            const releaseDateLabel = document.getElementById('releaseDateLabel');
+
+            if (isUpcomingCheckbox.checked) {
+                releaseDateInput.style.display = 'block';
+                releaseDateLabel.style.display = 'block';
+                releaseDateInput.setAttribute('required', 'required');
+            } else {
+                releaseDateInput.style.display = 'none';
+                releaseDateLabel.style.display = 'none';
+                releaseDateInput.removeAttribute('required');
+                releaseDateInput.value = '';
+            }
+        }
+
+        function editVideo(id, title, youtube_id, is_upcoming, release_date) {
+            const form = document.getElementById('videoForm');
+            const formHeader = document.getElementById('formHeader');
+            const submitButton = document.getElementById('submitButton');
+
+            document.getElementById('title').value = title;
+            document.getElementById('youtube_id').value = youtube_id;
+            document.getElementById('is_upcoming').checked = is_upcoming;
+            document.getElementById('release_date').value = release_date;
+
+            // Set form action to update route
+            form.action = `/edit_video/${id}`;
+            formHeader.textContent = 'Edit Video';
+            submitButton.textContent = 'Update Video';
+
+            // Add hidden input for video_id for POST request to /edit_video/<id>
+            let hiddenInput = document.querySelector('#videoForm input[name="video_id"]'); // Target specific form
+            if (!hiddenInput) {
+                hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'video_id';
+                form.prepend(hiddenInput);
+            }
+            hiddenInput.value = id;
+
+            // Show cancel button
+            let cancelButton = form.querySelector('button[onclick="clearForm()"]');
+            if (!cancelButton) {
+                cancelButton = document.createElement('button');
+                cancelButton.type = 'button';
+                cancelButton.textContent = 'Cancel Edit';
+                cancelButton.onclick = clearForm;
+                cancelButton.style.backgroundColor = '#6c757d';
+                cancelButton.style.marginTop = '10px';
+                form.appendChild(cancelButton);
+            }
+
+            toggleReleaseDate(); // Adjust visibility of date field based on upcoming status
+        }
+
+        function clearForm() {
+            const form = document.getElementById('videoForm');
+            const formHeader = document.getElementById('formHeader');
+            const submitButton = document.getElementById('submitButton');
+
+            document.getElementById('title').value = '';
+            document.getElementById('youtube_id').value = '';
+            document.getElementById('is_upcoming').checked = false;
+            document.getElementById('release_date').value = '';
+
+            form.action = "{{ url_for('upload_video') }}"; // Reset to upload action
+            formHeader.textContent = 'Upload New Video';
+            submitButton.textContent = 'Upload Video';
+
+            // Remove hidden video_id input
+            const hiddenInput = document.querySelector('#videoForm input[name="video_id"]');
+            if (hiddenInput) {
+                hiddenInput.remove();
+            }
+
+            // Remove cancel button
+            const cancelButton = form.querySelector('button[onclick="clearForm()"]');
+            if (cancelButton) {
+                cancelButton.remove();
+            }
+
+            toggleReleaseDate(); // Ensure date field is hidden for new upload
+        }
+    </script>
+</body>
+</html>
