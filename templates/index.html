@@ -333,6 +333,8 @@
     <div class="profile-dropdown" id="profileDropdown">
       {% if user %}
       <a href="{{ url_for('profile') }}">Profile</a>
+      
+      <a href="{{ url_for('community') }}">Community</a>
       <a href="#" onclick="showWatchHistory()">Watch History</a>
       {% if is_developer %}
       <a href="{{ url_for('developer_dashboard') }}">Developer Dashboard</a>
