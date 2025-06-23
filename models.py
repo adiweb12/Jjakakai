@@ -1,4 +1,3 @@
-# models.py
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
@@ -13,6 +12,7 @@ class User(db.Model):
     profile_photo = db.Column(db.String(255), default='default.png')
     is_developer = db.Column(db.Boolean, default=False)
     watch_history = db.relationship('WatchHistory', backref='user', lazy=True)
+    messages = db.relationship('Message', backref='user', lazy=True)  # New relationship
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -42,13 +42,21 @@ class WatchHistory(db.Model):
     def __repr__(self):
         return f'<WatchHistory User:{self.user_id} Video:{self.video_id}>'
 
-# NEW MODEL FOR HOME PAGE TEXT
+# ✅ NEW: Community Messages Model
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f'<Message {self.user_id}: {self.content[:30]}>'
+
 class HomePageContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    section_name = db.Column(db.String(100), unique=True, nullable=False) # e.g., 'home_welcome_message'
+    section_name = db.Column(db.String(100), unique=True, nullable=False)  # e.g., 'home_welcome_message'
     content = db.Column(db.Text, nullable=False)
     last_updated = db.Column(db.DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
 
     def __repr__(self):
         return f'<HomePageContent {self.section_name}>'
-

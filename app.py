@@ -1,7 +1,7 @@
 # app.py
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from config import Config
-from models import db, User, Video, WatchHistory, HomePageContent
+from models import db, User, Video, WatchHistory, HomePageContent,Message
 import os
 from werkzeug.utils import secure_filename
 import datetime
@@ -77,6 +77,23 @@ with app.app_context():
     else:
         print(f"User '{target_developer_username}' not found. Please ensure this user exists in the database to enable developer features.")
 
+@app.route('/community', methods=['GET', 'POST'])
+def community():
+    if 'user_id' not in session:
+        flash('Please log in to access the community.', 'warning')
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        content = request.form.get('content', '').strip()
+        if content:
+            new_msg = Message(content=content, user_id=session['user_id'])
+            db.session.add(new_msg)
+            db.session.commit()
+            flash('Message posted!', 'success')
+
+    messages = Message.query.order_by(Message.timestamp.desc()).all()
+    user = User.query.get(session['user_id'])
+    return render_template('community.html', messages=messages, username=user.username)
 
 @app.route('/')
 def index():
